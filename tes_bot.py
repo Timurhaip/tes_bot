@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
+from flask import Flask
+app = Flask(__name__)
 load_dotenv()
 
 # Включаем логирование, чтобы не пропустить важные сообщения
@@ -32,6 +34,11 @@ async def main():
     # Удаляем вебхук и пропускаем накопившиеся входящие сообщения
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
+@app.route('/ping', methods=['GET'])
+def ping():
+    return 'OK', 200  # Простой ответ для мониторинга
 
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
 if __name__ == "__main__":
     asyncio.run(main())
