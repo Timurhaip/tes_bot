@@ -9,19 +9,22 @@ from aiogram.filters.command import Command
 logging.basicConfig(level=logging.INFO)
 
 # Объект бота
-bot = Bot(os.getenv('TOKEN'))
+bot = Bot("8081364002:AAEkPw6n7yORNM5xOFK-dzchaHnv_el2GDA")
 # Диспетчер
 dp = Dispatcher()
 
 # Хэндлер на команду /start
-@dp.message(Command("start"))
+@dp.message(Command("start"))   
 async def cmd_inline_url(message: types.Message, bot: Bot):
     builder = InlineKeyboardBuilder()
     builder.row(types.InlineKeyboardButton(
         text="Open it", url="https://t.me/justtesseract_bot/ownerlink")
     )
+    builder.row(types.InlineKeyboardButton(
+        text="Channel", url="https://t.me/justurlnomore")
+    )    
     await message.answer(
-            'Hello, bro',
+            'Hello, welcome to Tesseract',
             reply_markup=builder.as_markup(),
         )    
 
@@ -34,5 +37,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
-
